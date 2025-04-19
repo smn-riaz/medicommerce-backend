@@ -8,9 +8,7 @@ import handleDuplicateError from '../errors/handleDuplicateError';
 import handleValidationError from '../errors/handleValidationError';
 import handleZodError from '../errors/handleZodError';
 
-
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
-  
   let statusCode = 500;
   let message = 'Something went wrong!';
   let errorSources: TErrorSources = [
@@ -59,7 +57,6 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     ];
   }
 
-  
   res.status(statusCode).json({
     success: false,
     message,
@@ -67,7 +64,6 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     // error:err,
     stack: config.node_dev === 'development' ? err?.stack : null,
   });
-
 
   next();
 };

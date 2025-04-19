@@ -1,12 +1,12 @@
-import mongoose, { Schema } from "mongoose";
-import { TProduct } from "./product.interface";
+import mongoose, { Schema } from 'mongoose';
+import { TProduct } from './product.interface';
 
 const productSchema = new Schema<TProduct>(
   {
-    name: { type: String, required: true, trim: true, unique:true},
+    name: { type: String, required: true, trim: true, unique: true },
     type: {
       type: String,
-      enum: ["Tablet", "Capsule", "Syrup", "Injection", "Cream", "Drops"],
+      enum: ['Tablet', 'Capsule', 'Syrup', 'Injection', 'Cream', 'Drops'],
       required: true,
     },
     description: { type: String, required: true },
@@ -25,9 +25,8 @@ const productSchema = new Schema<TProduct>(
     expireDate: { type: String, required: true },
     inStock: { type: Boolean, required: true, default: true },
     requiredPrescription: { type: Boolean },
-    
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-export const Product = mongoose.model<TProduct>("Product", productSchema);
+export const Product = mongoose.model<TProduct>('Product', productSchema);

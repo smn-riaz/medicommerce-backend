@@ -1,78 +1,68 @@
-import  httpStatus  from 'http-status';
-import AppError from "../../errors/AppError";
-import { TProduct } from "./product.interface";
-import { Product } from "./product.model";
+import httpStatus from 'http-status';
+import AppError from '../../errors/AppError';
+import { TProduct } from './product.interface';
+import { Product } from './product.model';
 import QueryBuilder from '../../builder/QueryBuilder';
 import { productSearchableFields } from './product.constant';
 
-const createProductIntoDB = async(payload:TProduct) => {
+const createProductIntoDB = async (payload: TProduct) => {
+  const result = await Product.create(payload);
 
-    const result = await Product.create(payload)
+  return result;
+};
 
-    return result
+const getSingleProductFromDB = async (id: string) => {
+  const product = await Product.findById(id);
 
-}
+  if (!product) {
+    throw new AppError(httpStatus.NOT_FOUND, 'No Medicine is  found!');
+  }
 
+  const result = await Product.findById(id);
 
+  return result;
+};
 
-const getSingleProductFromDB = async(id:string) => {
-
-    const product = await Product.findById(id)
-
-    if(!product) {
-        throw new AppError(httpStatus.NOT_FOUND, "No Medicine is  found!")
-    }
-
-    const result = await Product.findById(id)
-
-    return result
-
-}
-
-
-
-const getProductsFromDB = async(query:Record<string,unknown>) => {
-
-    const productQuery = new QueryBuilder(Product.find() 
-    ,query)
+const getProductsFromDB = async (query: Record<string, unknown>) => {
+  const productQuery = new QueryBuilder(Product.find(), query)
     .search(productSearchableFields)
-    .filter()
+    .filter();
 
-    const result = productQuery.modelQuery
-    return result
+  const result = productQuery.modelQuery;
+  return result;
+};
 
-}
+const updateProductFromDB = async (id: string, payload: Partial<TProduct>) => {
+  const product = await Product.findById(id);
 
+  if (!product) {
+    throw new AppError(httpStatus.NOT_FOUND, 'No Medicine is found!');
+  }
 
-const updateProductFromDB = async(id:string, payload:Partial<TProduct>) => {
+  const result = await Product.findByIdAndUpdate(id, payload, {
+    new: true,
+    runValidators: true,
+  });
 
-    const product = await Product.findById(id)
+  return result;
+};
 
-    if(!product) {
-        throw new AppError(httpStatus.NOT_FOUND, "No Medicine is found!")
-    }
+const deleteProductFromDB = async (id: string) => {
+  const product = await Product.findById(id);
 
+  if (!product) {
+    throw new AppError(httpStatus.NOT_FOUND, 'No Medicine is found!');
+  }
 
-    const result = await Product.findByIdAndUpdate(id,payload, { new: true, runValidators:true })
+  const result = await Product.findByIdAndDelete(id);
 
-    return result
+  return result;
+};
 
-}
-
-const deleteProductFromDB = async(id:string) => {
-
-
-    const product = await Product.findById(id)
-
-    if(!product) {
-        throw new AppError(httpStatus.NOT_FOUND, "No Medicine is found!")
-    }
-
-    const result = await Product.findByIdAndDelete(id)
-
-    return result
-
-}
-
-
-export const ProductServices = {createProductIntoDB, updateProductFromDB, getProductsFromDB, getSingleProductFromDB, deleteProductFromDB}
+export const ProductServices = {
+  createProductIntoDB,
+  updateProductFromDB,
+  getProductsFromDB,
+  getSingleProductFromDB,
+  deleteProductFromDB,
+};

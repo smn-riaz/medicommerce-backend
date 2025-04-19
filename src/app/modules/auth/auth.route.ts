@@ -1,20 +1,23 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import validateRequest from "../../middlewares/validateRequest";
+import validateRequest from '../../middlewares/validateRequest';
 
-import { UserValidation } from "../user/user.validation";
-import { AuthValidations } from "./auth.validation";
-import { AuthControllers } from "./auth.controller";
+import { UserValidation } from '../user/user.validation';
+import { AuthValidations } from './auth.validation';
+import { AuthControllers } from './auth.controller';
 
-const router = Router()
-
-router.post('/login',validateRequest(AuthValidations.loginValidationSchema),AuthControllers.login)
-
-
-
+const router = Router();
 
 router.post(
-    '/refresh-token', validateRequest(AuthValidations.refreshTokenValidationSchema),AuthControllers.refreshToken
-)
+  '/login',
+  validateRequest(AuthValidations.loginValidationSchema),
+  AuthControllers.login,
+);
 
-export const AuthRouter = router
+router.post(
+  '/refresh-token',
+  validateRequest(AuthValidations.refreshTokenValidationSchema),
+  AuthControllers.refreshToken,
+);
+
+export const AuthRouter = router;

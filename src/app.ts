@@ -1,25 +1,21 @@
-import express, { Application } from "express"
-import cors from 'cors'
-import cookieParser from "cookie-parser"
-import router from "./app/routes"
-import globalErrorHandler from "./app/middlewares/globalErrorHandler"
+import express, { Application } from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import router from './app/routes';
+import globalErrorHandler from './app/middlewares/globalErrorHandler';
 
-const app:Application = express()
+const app: Application = express();
 
-app.use(express.json())
-app.use(cors())
-app.use(cookieParser())
+app.use(express.json());
+app.use(cors());
+app.use(cookieParser());
 
+app.get('/', (req, res) => {
+  res.send('Welcome to MediMert Server');
+});
 
+app.use('/api', router);
 
-app.get("/", (req,res) => {
-    res.send("Welcome to MediMert Server")
-}) 
+app.use(globalErrorHandler);
 
-
-app.use("/api", router)
-
-app.use(globalErrorHandler)
-
-
-export default app
+export default app;

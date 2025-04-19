@@ -1,28 +1,30 @@
-import nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer';
 import config from '../../config';
 
-export async function sendTestEmail(to:string,name:string,status:string,subject:string) {
-  
+export async function sendTestEmail(
+  to: string,
+  name: string,
+  status: string,
+  subject: string,
+) {
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
+    host: 'smtp.gmail.com',
     port: 465,
     secure: true,
     auth: {
-    user: 'shman1739riaz@gmail.com',
-    pass: "bcoyaoacwnfmvxye"
+      user: 'shman1739riaz@gmail.com',
+      pass: 'bcoyaoacwnfmvxye',
     },
-tls: {
-  rejectUnauthorized: false
-}
-    })
-
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
 
   try {
-  
     const mailOptions = {
       from: '"Medicommerce" <support@medicommerce.com>',
-      to,                     
-      subject,                                        
+      to,
+      subject,
       html: `<!DOCTYPE html>
 <html>
   <head>
@@ -112,18 +114,12 @@ tls: {
     </div>
   </body>
 </html>
-`,                            
+`,
     };
 
-   
     const info = await transporter.sendMail(mailOptions);
-
-
   } catch (error) {
-    console.error('❌ Failed to send email:', error)
-     throw new Error('Failed to send email');
+    console.error('❌ Failed to send email:', error);
+    throw new Error('Failed to send email');
   }
 }
-
-
-

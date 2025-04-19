@@ -1,18 +1,22 @@
-import { Router } from "express";
-import validateRequest from "../../middlewares/validateRequest";
-import { UserValidation } from "./user.validation";
-import { UserControllers } from "./user.controller";
+import { Router } from 'express';
+import validateRequest from '../../middlewares/validateRequest';
+import { UserValidation } from './user.validation';
+import { UserControllers } from './user.controller';
+import { auth } from '../../middlewares/auth';
+import { USER_ROLE } from './user.constant';
 
-const router = Router()
+const router = Router();
 
+router.post(
+  '/create-user',
+  validateRequest(UserValidation.createUserValidation),
+  UserControllers.createUser,
+);
 
-router.post("/create-user", validateRequest(UserValidation.createUserValidation), UserControllers.createUser)
+router.get('/',auth(USER_ROLE.admin), UserControllers.getAllUsers);
 
-router.get("/", UserControllers.getAllUsers)
+router.get('/:id',auth(USER_ROLE.admin, USER_ROLE.user), UserControllers.getSingleUser);
 
-router.get("/:id", UserControllers.getSingleUser)
+router.delete('/:id',auth(USER_ROLE.admin), UserControllers.deleteUser);
 
-router.delete("/:id", UserControllers.deleteUser)
-
-
-export const UserRouter = router
+export const UserRouter = router;
