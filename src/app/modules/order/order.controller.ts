@@ -35,7 +35,7 @@ const createOrderPaymentWithoutPrescription: RequestHandler = catchAsync(
     sendResponse(res, {
       success: true,
       statusCode: HttpStatus.OK,
-      message: 'Order is placed successfully.',
+      message: 'Order placing..Pay quickly!',
       data: result,
     });
   },

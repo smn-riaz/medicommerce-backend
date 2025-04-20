@@ -59,6 +59,7 @@ const deleteProductFromDB = async (id: string) => {
   return result;
 };
 
+
 export const ProductServices = {
   createProductIntoDB,
   updateProductFromDB,

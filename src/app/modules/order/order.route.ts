@@ -23,7 +23,7 @@ router.post(
 
 router.get('/',auth(USER_ROLE.admin), OrderController.getAllOrder);
 
-router.get('/:orderId',auth(USER_ROLE.admin), OrderController.getSpecificOrder);
+router.get('/:orderId',auth(USER_ROLE.admin,USER_ROLE.user), OrderController.getSpecificOrder);
 
 router.patch(
   '/:id',

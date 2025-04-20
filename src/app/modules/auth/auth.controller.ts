@@ -8,6 +8,8 @@ import config from '../../config';
 const login: RequestHandler = catchAsync(async (req, res) => {
   const result = await AuthServices.login(req.body);
 
+
+
   const { refreshToken, accessToken } = result;
 
   res.cookie('refreshToken', refreshToken, {
@@ -22,7 +24,7 @@ const login: RequestHandler = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: 200,
-    message: 'User is logged in successfully',
+    message: `🎉 Welcome back, ${name.toUpperCase()}! You’ve logged in successfully.`,
     data: { userInfo, accessToken, refreshToken },
   });
 });

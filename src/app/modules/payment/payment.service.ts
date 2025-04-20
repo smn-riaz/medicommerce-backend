@@ -23,16 +23,16 @@ const makePaymentWithPrescription = async (data: any, paymentInfo: any) => {
 
     const GatewayPageURL = apiResponse.GatewayPageURL;
 
-    const updatedOrder = await Order.findByIdAndUpdate(
-      paymentInfo._id,
-      { paymentStatus: true },
-      {
-        new: true,
-        runValidators: true,
-      },
-    );
-
-    if (GatewayPageURL && updatedOrder) {
+  
+    if (GatewayPageURL) {
+     await Order.findByIdAndUpdate(
+        paymentInfo._id,
+        { paymentStatus: true },
+        {
+          new: true,
+          runValidators: true,
+        },
+      );
       return GatewayPageURL;
     } else {
       throw new AppError(

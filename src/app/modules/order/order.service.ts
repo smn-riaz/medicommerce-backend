@@ -13,7 +13,9 @@ import {
 } from './order.constant';
 import config from '../../config';
 import { sendTestEmail } from '../emailNotification/emailNotification';
-// import { sendTestEmail } from "../emailNotification/emailNotification";
+
+
+import mongoose from 'mongoose';
 
 const createOrderWithPrescriptionIntoDB = async (payload: TOrder) => {
   const user = await User.findById(payload.userId);
@@ -24,13 +26,14 @@ const createOrderWithPrescriptionIntoDB = async (payload: TOrder) => {
 
   if (user.role !== 'user') {
     throw new AppError(
-      httpStatus.NOT_FOUND,
-      'Sorry ! Admin can not place order.',
+      httpStatus.FORBIDDEN,
+      'Sorry! Admin cannot place an order.'
     );
   }
 
   const productIds = payload.products.map((p) => p.productId);
 
+  // Check for products with zero quantity
   const outOfStockProducts = await Product.find({
     _id: { $in: productIds },
     quantity: { $lte: 0 },
@@ -38,13 +41,36 @@ const createOrderWithPrescriptionIntoDB = async (payload: TOrder) => {
 
   if (outOfStockProducts.length > 0) {
     const names = outOfStockProducts.map((p) => p.name).join(', ');
-    throw new AppError(httpStatus.BAD_REQUEST, `Out of stock : ${names}`);
+    throw new AppError(httpStatus.BAD_REQUEST, `Out of stock: ${names}`);
   }
+
+
+  for (const item of payload.products) {
+    const product = await Product.findById(item.productId);
+    if (!product || product.quantity < item.quantity) {
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        `Not enough stock for product: ${product?.name || 'Unknown'}`
+      );
+    }
+  }
+
 
   const result = await Order.create(payload);
 
+
+  for (const item of payload.products) {
+    const product = await Product.findById(item.productId);
+    if (product) {
+      product.quantity -= item.quantity;
+      await product.save();
+    }
+  }
+
   return result;
 };
+
+
 
 
 
@@ -56,8 +82,7 @@ export const createOrderPaymentWithoutPrescriptionIntoDB = async (
   const { totalPrice, name, email, products, shippingInfo, userId } = payload;
 
 
-  
-  // --- Input validation ---
+
   if (!totalPrice) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
@@ -78,11 +103,11 @@ export const createOrderPaymentWithoutPrescriptionIntoDB = async (
   ) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      'Complete shipping information is required.'
+      'Shipping info is required.'
     );
   }
 
-  // --- Validate user ---
+
   const user = await User.findById(userId);
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'User not found.');
@@ -91,17 +116,21 @@ export const createOrderPaymentWithoutPrescriptionIntoDB = async (
   if (user.role !== 'user') {
     throw new AppError(
       httpStatus.FORBIDDEN,
-      'Only regular users are allowed to place orders.'
+      'Only users are allowed to place orders.'
     );
   }
 
-  // --- Check stock ---
+
+
   const productIds = products.map((p) => p.productId);
   const dbProducts = await Product.find({ _id: { $in: productIds } });
 
   const outOfStock: string[] = [];
 
-  dbProducts.forEach((dbProduct) => {
+
+
+
+  for (const dbProduct of dbProducts) {
     const orderItem = products.find(
       (p) => p.productId.toString() === dbProduct._id.toString()
     );
@@ -115,10 +144,12 @@ export const createOrderPaymentWithoutPrescriptionIntoDB = async (
         dbProduct.inStock = false;
       }
 
-      // Optional: Persist the updated quantity
-      // await dbProduct.save();
+      await dbProduct.save();
     }
-  });
+  }
+
+
+
 
   if (outOfStock.length > 0) {
     throw new AppError(
@@ -127,7 +158,8 @@ export const createOrderPaymentWithoutPrescriptionIntoDB = async (
     );
   }
 
-  // --- Prepare SSLCommerz payment ---
+
+
   const tran_id = `txn_${Date.now()}`;
   const productNames = products.map((p) => p.name || 'Unknown').join('-');
 
@@ -180,7 +212,7 @@ export const createOrderPaymentWithoutPrescriptionIntoDB = async (
     );
   }
 
-  // --- Save order with payment status true ---
+
   await Order.create({
     ...payload,
     paymentStatus: true,
@@ -188,6 +220,8 @@ export const createOrderPaymentWithoutPrescriptionIntoDB = async (
 
   return gatewayUrl;
 };
+
+
 
 
 
