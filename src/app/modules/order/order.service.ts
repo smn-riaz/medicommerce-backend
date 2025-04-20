@@ -15,7 +15,7 @@ import config from '../../config';
 import { sendTestEmail } from '../emailNotification/emailNotification';
 
 
-import mongoose from 'mongoose';
+
 
 const createOrderWithPrescriptionIntoDB = async (payload: TOrder) => {
   const user = await User.findById(payload.userId);
@@ -33,7 +33,7 @@ const createOrderWithPrescriptionIntoDB = async (payload: TOrder) => {
 
   const productIds = payload.products.map((p) => p.productId);
 
-  // Check for products with zero quantity
+ 
   const outOfStockProducts = await Product.find({
     _id: { $in: productIds },
     quantity: { $lte: 0 },
@@ -165,7 +165,7 @@ export const createOrderPaymentWithoutPrescriptionIntoDB = async (
     total_amount: totalPrice,
     currency: 'BDT',
     tran_id,
-    success_url: `${config.ssl_success_url as string}`,
+    success_url: config.ssl_success_url as string,
     fail_url: config.ssl_failed_url as string,
     cancel_url: config.ssl_cancel_url as string,
     ipn_url: config.ssl_ipn_url as string,
