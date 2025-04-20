@@ -25,8 +25,6 @@ const createOrderPaymentWithoutPrescription: RequestHandler = catchAsync(
 
     const orderInfo = req.body;
 
-    console.log(orderInfo);
-
     const result =
       await OrderServices.createOrderPaymentWithoutPrescriptionIntoDB(
         orderInfo,

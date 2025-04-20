@@ -158,8 +158,6 @@ export const createOrderPaymentWithoutPrescriptionIntoDB = async (
     );
   }
 
-
-
   const tran_id = `txn_${Date.now()}`;
   const productNames = products.map((p) => p.name || 'Unknown').join('-');
 
@@ -167,7 +165,7 @@ export const createOrderPaymentWithoutPrescriptionIntoDB = async (
     total_amount: totalPrice,
     currency: 'BDT',
     tran_id,
-    success_url: `${config.ssl_success_url}?redirectPath=${tran_id}`,
+    success_url: `${config.ssl_success_url as string}`,
     fail_url: config.ssl_failed_url as string,
     cancel_url: config.ssl_cancel_url as string,
     ipn_url: config.ssl_ipn_url as string,
