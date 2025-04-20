@@ -4,7 +4,7 @@
 
 
 ### `Live Website :` [Medicommerce Client](https://medicommerce-client.vercel.app)
-### `Live Server :` [Medicommerce Server](https://medimart-server-three.vercel.app/api)
+### `Live Server :` [Medicommerce Server](https://medimart-server-three.vercel.app)
 ### `Client GitHub :` [GitHub Repo](https://github.com/smn-riaz/medimart-6-mediCommerce-client)
 ### `Backend GitHub :` [GitHub Repo](https://github.com/smn-riaz/medimart-6-mediCommerce-server)
 
