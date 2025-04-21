@@ -73,13 +73,13 @@ const refreshToken = async (refreshToken: string) => {
     role,
   };
 
-  const accessToken = createToken(
+  const newAccessToken = createToken(
     jwtPayload,
     config.jwt_access_secret as string,
     config.jwt_access_expires_in as string,
   );
 
-  return { accessToken };
+  return { accessToken: newAccessToken };
 };
 
 export const AuthServices = { login, refreshToken };

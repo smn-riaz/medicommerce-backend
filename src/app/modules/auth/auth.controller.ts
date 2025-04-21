@@ -39,14 +39,14 @@ const logOut = catchAsync(async (req, res) => {
 });
 
 const refreshToken: RequestHandler = catchAsync(async (req, res) => {
-  const { refreshToken } = req.cookies;
+  const { authorization } = req.headers;
 
-  const result = await AuthServices.refreshToken(refreshToken);
+  const result = await AuthServices.refreshToken(authorization as string);
 
   sendResponse(res, {
-    success: true,
     statusCode: 200,
-    message: 'Access token is retrived successfully',
+    success: true,
+    message: "User logged in successfully!",
     data: result,
   });
 });
