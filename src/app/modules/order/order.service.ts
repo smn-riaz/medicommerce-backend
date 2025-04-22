@@ -246,7 +246,10 @@ const getUserOrdersFromDB = async (id: string) => {
 
 
 const getSpecificOrderFromDB = async (id: string) => {
-  const result = await Order.findById(id);
+  const result = await Order.findById(id).populate({
+    path:"products.productId",
+    model:'Product'
+  });
 
   if (!result) {
     throw new AppError(httpStatus.NOT_FOUND, 'There is no Order found');
