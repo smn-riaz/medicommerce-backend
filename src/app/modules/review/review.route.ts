@@ -12,7 +12,11 @@ router.post('/create-review',
     validateRequest(reviewValidations.createReviewSchema), ReviewController.createReview)
 
 
-router.get('/',validateRequest(reviewValidations.createReviewSchema), ReviewController.createReview)
+router.get('/',ReviewController.getAllReviews)
+
+router.get('/:id',ReviewController.getSpecificProductReviews)
+
+router.post('/user-product',ReviewController.getSpecificUserAndProductReview)
 
 
 

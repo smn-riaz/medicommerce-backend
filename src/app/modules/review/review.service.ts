@@ -26,21 +26,62 @@ const createReviewIntoDB = async (payload: IReview) => {
       productId: payload.productId,
       userId: payload.userId
     });
-    
+  
+
     if (isReviewExist) {
       throw new AppError(HttpStatus.CONFLICT, "You've already reviewed the medicine!");
     }
     
-
-
     const res = await Review.create(payload)
 
-    return res
+ return res
 }
+
+
 
 
 const getAllReviews = async () => {
-
+const result = await Review.find().populate('userId').populate('productId')
+return result
 }
 
-export const ReviewServices = {createReviewIntoDB, getAllReviews}
+
+
+const getSpecificUserAndProductReview = async({userId}: {userId: string}) => {
+
+  const user = await User.findById(userId)
+
+  if (!user) {
+    throw new AppError(HttpStatus.CONFLICT, 'User not found!');
+  }
+
+
+  const specificUserProductReview = await Review.findOne({
+    userId: userId
+  }).populate('userId');
+
+  return specificUserProductReview
+}
+
+
+const getSpecificProductReviews = async(productId:string) => {
+
+
+  const product = await Product.findById(productId)
+
+  if (!product) {
+    throw new AppError(HttpStatus.CONFLICT, 'Product not found!');
+  }
+
+
+  const specificUserProductReview = await Review.find({
+    productId: productId,
+  }).populate('userId');
+
+  return specificUserProductReview
+}
+
+
+
+
+export const ReviewServices = {createReviewIntoDB,getSpecificUserAndProductReview, getSpecificProductReviews, getAllReviews}
