@@ -1,4 +1,5 @@
-# 🏥 MediCommerce - Full-Stack E-commerce for Healthcare Products
+# 🏥 MediCommerce
+## Full-Stack E-commerce for Healthcare Products
 
 MediCommerce is a modern, full-stack e-commerce platform tailored for purchasing medical and healthcare products securely. Built using Next.js, Node.js, TypeScript, and integrated with SSLCommerz for real-time payments, MediCommerce includes features like prescription uploads, role-based dashboards, and email notifications to provide a seamless user experience.
 
