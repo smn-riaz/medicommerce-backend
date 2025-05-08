@@ -1,15 +1,15 @@
-# 🏥 MediCommerce
+# 🏥 MediCommerce - Full-Stack E-commerce for Healthcare Products
 
-A modern, full-stack e-commerce web application tailored for purchasing medical and healthcare products securely. Built with Next.js, Node.js, TypeScript, and integrated with SSLCommerz for real-time payments. Includes features like prescription uploads, role-based dashboards, and email notifications for a seamless user experience.
+MediCommerce is a modern, full-stack e-commerce platform tailored for purchasing medical and healthcare products securely. Built using Next.js, Node.js, TypeScript, and integrated with SSLCommerz for real-time payments, MediCommerce includes features like prescription uploads, role-based dashboards, and email notifications to provide a seamless user experience.
 
 ---
 
 ## 🌐 Live Links
 
-- 🚀 **Client App:** [https://medicommerce-client.vercel.app](https://medicommerce-client.vercel.app)
-- 🌐 **Server API:** [https://medimart-server-three.vercel.app](https://medimart-server-three.vercel.app)
-- 📦 **Client GitHub Repo:** [smn-riaz/medimart-6-mediCommerce-client](https://github.com/smn-riaz/medimart-6-mediCommerce-client)
-- ⚙️ **Server GitHub Repo:** [smn-riaz/medimart-6-mediCommerce-server](https://github.com/smn-riaz/medimart-6-mediCommerce-server)
+- 🚀 **Client App**: [MediCommerce Client](https://medicommerce-client.vercel.app)
+- 🌐 **Server API**: [MediCommerce API](https://medimart-server-three.vercel.app)
+- 📦 **Client GitHub Repo**: [smn-riaz/medicommerce-frontend](https://github.com/smn-riaz/medicommerce-frontend)
+- ⚙️ **Server GitHub Repo**: [smn-riaz/medicommerce-backend](https://github.com/smn-riaz/medicommerce-backend)
 
 ---
 
@@ -22,94 +22,83 @@ A modern, full-stack e-commerce web application tailored for purchasing medical 
 ## 🚀 Core Features
 
 ### 👤 User Functionality
-- Secure registration and login with JWT-based authentication
-- Browse and search for medicines by name, brand, or type
-- Real-time product filtering with advanced search capabilities
-- Upload prescriptions for restricted medicines before ordering
-- Add to cart and place orders with online payment via SSLCommerz
-- Track order history and view statuses
-- Receive order confirmation and status updates via email
-- Give ratings and reviews products
+
+- 🔐 **Secure Authentication**: Register and log in using JWT-based authentication with secure routes.
+- 💊 **Product Search & Filtering**: Browse and search for medicines by name, brand, or type with real-time filtering.
+- 📄 **Prescription Upload**: Upload prescriptions for restricted medicines before placing an order.
+- 🛒 **Order Placement**: Add products to the cart, place orders, and pay securely via SSLCommerz.
+- 📧 **Order Notifications**: Receive email confirmations and status updates for placed orders.
+- ⭐ **Ratings & Reviews**: Users can rate and review products for better decision-making.
 
 ### 🛒 Admin Functionality
-- Admin dashboard with role-based access control
-- Manage all users (view/delete/update roles)
-- Add, update, or delete products (CRUD)
-- Review uploaded prescriptions and approve/reject as needed
-- Monitor orders and update shipping/payment statuses
-- Access user feedback and testimonials
+
+- 👨‍💼 **Admin Dashboard**: Access a comprehensive dashboard with role-based controls.
+- 💼 **User Management**: View, update, or delete user accounts with role-based access.
+- 📦 **Product Management**: CRUD operations to add, update, or delete products.
+- 📝 **Prescription Approval**: Admins can review uploaded prescriptions and approve/reject them.
+- 📊 **Order Monitoring**: Monitor orders and update their shipping/payment statuses.
+- 🧑‍🤝‍🧑 **Customer Feedback**: Access customer feedback and testimonials for product improvement.
 
 ---
 
 ## 🧰 Technologies & Versions
 
 ### 🔧 Frontend
-- Next.js (v15.2.4)
-- TypeScript (v5.x)
-- Tailwind CSS (v4.0)
-- Shadcn UI Components
-- Framer Motion (v12.9.4)
-- Redux Toolkit (v2.6.1)
 
-### 🛠️ Backend
-- Node.js (v22.12.0)
-- Express.js (v4.21.2)
-- MongoDB (v6.15.0)
-- Mongoose (v8.13.0)
-- Bcrypt.js (v5.0.2)
-- JSON Web Token - JWT (v9.0.2)
-- Zod (v3.24.2) for schema validation
-- Nodemailer (v6.10.1)
-- SSLCommerz Payment Gateway Integration : Sslcommerz-lts (v1.1.0)
+- **Next.js** (v15.2.4)
+- **TypeScript** (v5.x)
+- **Tailwind CSS** (v4.0)
+- **Shadcn UI Components**
+- **Framer Motion** (v12.9.4)
+- **Redux Toolkit** (v2.6.1)
+
+### 🛠 Backend
+
+- **Node.js** (v22.12.0)
+- **Express.js** (v4.21.2)
+- **MongoDB** (v6.15.0)
+- **Mongoose** (v8.13.0)
+- **Bcrypt.js** (v5.0.2)
+- **JSON Web Token - JWT** (v9.0.2)
+- **Zod** (v3.24.2) for schema validation
+- **Nodemailer** (v6.10.1) for email notifications
+- **SSLCommerz Payment Gateway Integration** (Sslcommerz-lts v1.1.0)
 
 ---
 
 ## 🚧 Major Challenges
 
-1. 🔐 Securing Authentication
-   - Implementing persistent login using JWT with role-based routes and token verification on both the frontend and backend.
-
-2. 💳 Payment Gateway Integration
-   - Handling secure real-time transactions with SSLCommerz and managing success/failure callbacks.
-
-3. 🔍 Complex Search & Filtering
-   - Implementing efficient search logic that filters products by multiple attributes (name, brand, type).
-
-4. 📦 Inventory Management
-   - Real-time stock validation and ensuring data consistency between orders and product availability.
-
-5. 📄 Prescription Verification
-   - Uploading, storing, and validating prescription images before approving an order for sensitive medicines.
-
-6. 📱 Responsive UI Design
-   - Ensuring a consistent user experience across mobile, tablet, and desktop using Tailwind CSS and responsive components.
-
-7. 📧 Email Notifications
-   - Sending dynamic emails with order confirmation and tracking updates using Nodemailer.
+1. 🔐 **Securing Authentication**: Implemented JWT-based persistent login with role-based routes and token validation.
+2. 💳 **Payment Gateway Integration**: Secure real-time payments using SSLCommerz, including managing success/failure callbacks.
+3. 🔍 **Complex Search & Filtering**: Implemented advanced search functionality, filtering products by multiple attributes like name, brand, and type.
+4. 📦 **Inventory Management**: Ensured real-time stock validation and kept product availability in sync with orders.
+5. 📄 **Prescription Verification**: Implemented prescription upload and validation before confirming orders for sensitive medicines.
+6. 📱 **Responsive UI Design**: Developed a responsive UI to ensure a smooth experience on mobile, tablet, and desktop using Tailwind CSS.
+7. 📧 **Email Notifications**: Integrated Nodemailer to send dynamic emails for order confirmation and tracking updates.
 
 ---
 
 ## 📈 Future Plans
 
-- 💬 Real-time Chat: Integrate Socket.io for communication between users and admins
-- 📦 Order Tracking: Live delivery status updates for placed orders
-- 🎁 Promotions: Discount codes and promo campaigns for engagement
-- 🧠 Smart Recommendations: AI-based suggestions based on user history
-- 🛍️ Catalog Expansion: Add health tools, supplements, and personal care items
+- 💬 **Real-time Chat**: Integrate Socket.io to enable real-time chat support between users and admins.
+- 📦 **Order Tracking**: Add live delivery status updates for placed orders.
+- 🎁 **Promotions**: Implement discount codes and promotional campaigns to boost engagement.
+- 🧠 **Smart Recommendations**: Add AI-based product suggestions based on user history and preferences.
+- 🛍️ **Catalog Expansion**: Add health tools, supplements, and personal care items to diversify the product catalog.
 
 ---
 
 ## 🛠️ Getting Started Locally
 
 ### Prerequisites
-- Node.js v20+
-- MongoDB Atlas or Local Instance
-- SSLCommerz account for sandbox/testing
-- Create .env files for both client and server
+- **Node.js** (v20+)
+- **MongoDB Atlas** or local MongoDB instance
+- **SSLCommerz Sandbox Account** for testing payments
+- Set up **.env** files for both frontend and backend
 
-### Setup
+### Setup Instructions
 
 1. Clone the repositories:
    ```bash
-   git clone https://github.com/smn-riaz/medimart-6-mediCommerce-client
-   git clone https://github.com/smn-riaz/medimart-6-mediCommerce-server
+   git clone https://github.com/smn-riaz/medicommerce-frontend
+   git clone https://github.com/smn-riaz/medicommerce-backend
