@@ -99,7 +99,6 @@ MediCommerce is a modern, full-stack e-commerce platform tailored for purchasing
 
 ### Setup Instructions
 
-1. Clone the repositories:
+1. Clone the repository:
    ```bash
-   git clone https://github.com/smn-riaz/medicommerce-frontend
    git clone https://github.com/smn-riaz/medicommerce-backend
