@@ -6,6 +6,9 @@ import { User } from './user.model';
 import { createToken } from '../auth/auth.utils';
 import config from '../../config';
 
+import bcrypt from 'bcrypt';
+import { Types } from 'mongoose';
+
 const createUserIntoDB = async (payload: TUser) => {
   const isUserExists = await User.findOne({ email: payload.email });
 
@@ -50,8 +53,9 @@ const getAllUsersFromDB = async (query: Record<string, unknown>) => {
   return result;
 };
 
+
 const getSingleUserFromDB = async (id: string) => {
-  const result = await User.findById(id);
+  const result = await User.findById(id) 
 
   if (!result) {
     throw new AppError(HttpStatus.NOT_FOUND, 'There is no User found');
@@ -68,9 +72,70 @@ const deleteSingleUserFromDB = async (id: string) => {
   return result;
 };
 
+
+
+const updateUserIntoDB = async(id:string, payload:Partial<TUser>) => {
+  const user = await User.findById(id);
+
+  if (!user) {
+    throw new AppError(HttpStatus.NOT_FOUND, 'There is no User found');
+  }
+
+
+
+  const result = await User.findByIdAndUpdate(id, payload, {
+     new: true,
+     runValidators: true,
+   });
+ 
+   return result;
+
+
+}
+
+
+
+const updatePasswordIntoDB = async(id:string, payload:{prevPassword:string, newPassword:string}) => {
+
+  const {prevPassword,newPassword} = payload
+
+  const user = await User.findById(id)
+
+
+  if (!user) {
+    throw new AppError(HttpStatus.NOT_FOUND, 'There is no User found');
+  }
+
+  const isPasswordMached = await User.isPasswordMached(prevPassword, user.password)
+
+
+const hasedNewPassword = await bcrypt.hash(
+    newPassword,
+    Number(config.bcrypt_salt_rounds),
+  );
+
+
+
+  if(!isPasswordMached){
+     throw new AppError(HttpStatus.NOT_FOUND, 'Your Previous Password is wrong');
+  }
+
+
+const result = await User.findByIdAndUpdate(id, {password:hasedNewPassword}, {
+     new: true,
+     runValidators: true,
+   });
+ 
+   return result
+
+}
+
+
 export const UserServices = {
   createUserIntoDB,
   deleteSingleUserFromDB,
   getSingleUserFromDB,
   getAllUsersFromDB,
+  updateUserIntoDB,
+  updatePasswordIntoDB
 };

@@ -20,15 +20,15 @@ const createUser: RequestHandler = catchAsync(async (req, res) => {
 const getSingleUser: RequestHandler = catchAsync(async (req, res) => {
   const { id } = req.params;
 
-  const { name, email, _id, role } = await UserServices.getSingleUserFromDB(id);
+  const result = await UserServices.getSingleUserFromDB(id);
 
-  const user = { name, email, _id, role };
+
 
   sendResponse(res, {
     success: true,
     statusCode: HttpStatus.OK,
     message: 'User Retrived successfully',
-    data: user,
+    data: result,
   });
 });
 
@@ -59,9 +59,43 @@ const getAllUsers: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+
+const updateUser:RequestHandler = catchAsync(async(req,res) => {
+
+  const {id} = req.params
+  
+  const result = await UserServices.updateUserIntoDB(id, req.body)
+
+  sendResponse(res, {
+    success: true,
+    statusCode: HttpStatus.OK,
+    message: 'Your Profile Updated successfully',
+    data: result,
+  })
+}) 
+
+
+
+const updatePassword:RequestHandler = catchAsync(async(req,res) => {
+
+  
+  const {id} = req.params
+  
+  const result = await UserServices.updatePasswordIntoDB(id, req.body)
+
+  sendResponse(res, {
+    success: true,
+    statusCode: HttpStatus.OK,
+    message: 'Password Updated successfully',
+    data: result,
+  })
+}) 
+
 export const UserControllers = {
   createUser,
   getSingleUser,
   deleteUser,
   getAllUsers,
+  updatePassword,
+  updateUser
 };

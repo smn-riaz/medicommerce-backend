@@ -47,7 +47,7 @@ return result
 
 
 
-const getSpecificUserAndProductReview = async({userId}: {userId: string}) => {
+const getSpecificUserAndProductReview = async(userId:string) => {
 
   const user = await User.findById(userId)
 
@@ -56,7 +56,7 @@ const getSpecificUserAndProductReview = async({userId}: {userId: string}) => {
   }
 
 
-  const specificUserProductReview = await Review.findOne({
+  const specificUserProductReview = await Review.find({
     userId: userId
   }).populate('userId');
 

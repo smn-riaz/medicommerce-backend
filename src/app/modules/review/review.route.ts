@@ -16,7 +16,7 @@ router.get('/',ReviewController.getAllReviews)
 
 router.get('/:id',ReviewController.getSpecificProductReviews)
 
-router.post('/user-product',ReviewController.getSpecificUserAndProductReview)
+router.get('/user-product/:id',ReviewController.getSpecificUserAndProductReview)
 
 
 

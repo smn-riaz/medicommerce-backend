@@ -23,13 +23,22 @@ const getSingleProductFromDB = async (id: string) => {
   return result;
 };
 
+
+
 const getProductsFromDB = async (query: Record<string, unknown>) => {
+
   const productQuery = new QueryBuilder(Product.find(), query)
     .search(productSearchableFields)
-    .filter();
+    .filter()
+    .paginate();
 
-  const result = productQuery.modelQuery;
-  return result;
+  const result = await productQuery.modelQuery;
+
+
+  const meta = await productQuery.countTotal();
+
+
+  return {result,meta}
 };
 
 const updateProductFromDB = async (id: string, payload: Partial<TProduct>) => {
@@ -46,6 +55,8 @@ const updateProductFromDB = async (id: string, payload: Partial<TProduct>) => {
 
   return result;
 };
+
+
 
 const deleteProductFromDB = async (id: string) => {
   const product = await Product.findById(id);

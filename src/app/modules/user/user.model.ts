@@ -57,7 +57,7 @@ userSchema.pre('find', function (next) {
 
 userSchema.statics.isPasswordMached = async function (
   plainTextpassword,
-  hashedPassword,
+  hashedPassword
 ) {
   return await bcrypt.compare(plainTextpassword, hashedPassword);
 };

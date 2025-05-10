@@ -35,16 +35,16 @@ const result = await ReviewServices.getAllReviews()
   
   const getSpecificUserAndProductReview: RequestHandler = catchAsync(async (req, res) => {
   
-  const {userId} = req.body;
+  const {id} = req.params;
   
   
-  const result = await ReviewServices.getSpecificUserAndProductReview({userId})
+  const result = await ReviewServices.getSpecificUserAndProductReview(id)
   
   
       sendResponse(res, {
         success: true,
         statusCode: HttpStatus.OK,
-        message: 'Specific user product review is retrived successfully',
+        message: 'Specific user reviews are retrived successfully',
         data: result
       });
     });

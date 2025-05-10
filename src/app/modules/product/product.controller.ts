@@ -28,16 +28,22 @@ const getSingleProduct: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+
+
 const getAllProducts: RequestHandler = catchAsync(async (req, res) => {
   const result = await ProductServices.getProductsFromDB(req.query);
-
+  
   sendResponse(res, {
     success: true,
     statusCode: HttpStatus.OK,
     message: 'Products are retived successfully',
-    data: result,
+    meta: result.meta,
+    data: result.result,
   });
 });
+
+
+
 
 const updateProduct: RequestHandler = catchAsync(async (req, res) => {
   const { id } = req.params;
@@ -52,6 +58,8 @@ const updateProduct: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+
+
 const deleteProduct: RequestHandler = catchAsync(async (req, res) => {
   const { id } = req.params;
 
@@ -61,6 +69,7 @@ const deleteProduct: RequestHandler = catchAsync(async (req, res) => {
     success: true,
     statusCode: HttpStatus.OK,
     message: 'Product is deleted successfully',
+    
     data: result,
   });
 });

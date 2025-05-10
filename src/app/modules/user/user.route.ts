@@ -13,6 +13,18 @@ router.post(
   UserControllers.createUser,
 );
 
+router.patch(
+  '/update-user/:id',auth(USER_ROLE.user),
+  validateRequest(UserValidation.updateUserValidation),
+  UserControllers.updateUser,
+);
+
+router.patch(
+  '/update-password/:id',auth(USER_ROLE.user),
+  validateRequest(UserValidation.updateUserValidation),
+  UserControllers.updatePassword,
+);
+
 router.get('/',auth(USER_ROLE.admin), UserControllers.getAllUsers);
 
 router.get('/:id',auth(USER_ROLE.admin, USER_ROLE.user), UserControllers.getSingleUser);
