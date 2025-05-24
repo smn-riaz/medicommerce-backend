@@ -26,6 +26,14 @@ router.patch(
   ProductControllers.updateProduct,
 );
 
+
+router.post(
+  '/aisuggestion',
+  ProductControllers.aiSuggestion,
+);
+
+
+
 router.delete('/:id',auth(USER_ROLE.admin), ProductControllers.deleteProduct);
 
 export const ProductRouter = router;

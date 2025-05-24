@@ -1,6 +1,6 @@
 export type TProduct = {
   name: string;
-  type: 'Tablet' | 'Capsule' | 'Syrup' | 'Injection' | 'Cream' | 'Drops';
+  type: 'Tablet' | 'Capsule' | 'Syrup' | 'Injection' | 'Cream' | 'Drops' | 'Food' | "Skin" | 'Baby';
   description: string;
   price: number;
   discount: number;

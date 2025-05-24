@@ -6,7 +6,7 @@ const productSchema = new Schema<TProduct>(
     name: { type: String, required: true, trim: true, unique: true },
     type: {
       type: String,
-      enum: ['Tablet', 'Capsule', 'Syrup', 'Injection', 'Cream', 'Drops'],
+      enum: ['Tablet', 'Capsule', 'Syrup', 'Injection', 'Cream', 'Drops', 'Food', 'Skin', 'Baby'],
       required: true,
     },
     description: { type: String, required: true },

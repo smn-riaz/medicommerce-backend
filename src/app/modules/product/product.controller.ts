@@ -5,7 +5,10 @@ import HttpStatus from 'http-status';
 import { ProductServices } from './product.service';
 
 const createProduct: RequestHandler = catchAsync(async (req, res) => {
+  console.log(req.body);
   const result = await ProductServices.createProductIntoDB(req.body);
+
+ 
 
   sendResponse(res, {
     success: true,
@@ -14,6 +17,24 @@ const createProduct: RequestHandler = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+
+const aiSuggestion: RequestHandler = catchAsync(async (req, res) => {
+
+  
+  const result = await ProductServices.aiSuggestion(req.body.info);
+
+
+
+  sendResponse(res, {
+    success: true,
+    statusCode: HttpStatus.OK,
+    message: 'Suggestion is generated successfully',
+    data: result,
+  });
+});
+
+
 
 const getSingleProduct: RequestHandler = catchAsync(async (req, res) => {
   const { id } = req.params;
@@ -80,4 +101,5 @@ export const ProductControllers = {
   getAllProducts,
   getSingleProduct,
   deleteProduct,
+  aiSuggestion
 };

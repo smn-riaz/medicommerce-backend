@@ -3,7 +3,7 @@ import { z } from 'zod';
 const createProductValidation = z.object({
   body: z.object({
     name: z.string().min(1, 'Name is required').trim(),
-    type: z.enum(['Tablet', 'Capsule', 'Syrup', 'Injection', 'Cream', 'Drops']),
+    type: z.enum(['Tablet', 'Capsule', 'Syrup', 'Injection', 'Cream', 'Drops','Food','Skin','Baby']),
     description: z.string().min(1, 'Description is required'),
     price: z.number().gt(0, 'Price must be greater than 0'),
     discount: z.number().min(0).max(100).default(0),
