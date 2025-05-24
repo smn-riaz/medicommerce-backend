@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.OrderRouter = void 0;
+const express_1 = require("express");
+const validateRequest_1 = __importDefault(require("../../middlewares/validateRequest"));
+const order_validation_1 = require("./order.validation");
+const order_controller_1 = require("./order.controller");
+const user_constant_1 = require("../user/user.constant");
+const auth_1 = require("../../middlewares/auth");
+const router = (0, express_1.Router)();
+router.post('/create-order-prescription', (0, auth_1.auth)(user_constant_1.USER_ROLE.user), (0, validateRequest_1.default)(order_validation_1.OrderValidationSchema.createOrderSchema), order_controller_1.OrderController.createOrderWithPrescription);
+router.post('/create-order-payment', (0, auth_1.auth)(user_constant_1.USER_ROLE.user), (0, validateRequest_1.default)(order_validation_1.OrderValidationSchema.createOrderSchema), order_controller_1.OrderController.createOrderPaymentWithoutPrescription);
+router.get('/', (0, auth_1.auth)(user_constant_1.USER_ROLE.admin), order_controller_1.OrderController.getAllOrder);
+router.get('/:orderId', (0, auth_1.auth)(user_constant_1.USER_ROLE.admin, user_constant_1.USER_ROLE.user), order_controller_1.OrderController.getSpecificOrder);
+router.patch('/:id', (0, auth_1.auth)(user_constant_1.USER_ROLE.admin), (0, validateRequest_1.default)(order_validation_1.OrderValidationSchema.updateOrderSchema), order_controller_1.OrderController.updateOrder);
+router.patch('/prescription/:id', (0, auth_1.auth)(user_constant_1.USER_ROLE.admin), (0, validateRequest_1.default)(order_validation_1.OrderValidationSchema.updateOrderSchema), order_controller_1.OrderController.updatePrescriptionReview);
+router.get('/user-order/:id', (0, auth_1.auth)(user_constant_1.USER_ROLE.admin, user_constant_1.USER_ROLE.user), order_controller_1.OrderController.getUserOrders);
+exports.OrderRouter = router;
