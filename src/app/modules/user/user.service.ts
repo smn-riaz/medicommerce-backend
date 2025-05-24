@@ -7,7 +7,7 @@ import { createToken } from '../auth/auth.utils';
 import config from '../../config';
 
 import bcrypt from 'bcrypt';
-import { Types } from 'mongoose';
+
 
 const createUserIntoDB = async (payload: TUser) => {
   const isUserExists = await User.findOne({ email: payload.email });

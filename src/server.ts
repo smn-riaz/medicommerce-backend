@@ -17,6 +17,8 @@ async function main() {
   }
 }
 
+main();
+
 process.on('unhandledRejection', (reason: unknown) => {
   console.error('Unhandled Rejection:', reason);
 
@@ -35,4 +37,4 @@ process.on('uncaughtException', (error) => {
   process.exit(1);
 });
 
-main();
+

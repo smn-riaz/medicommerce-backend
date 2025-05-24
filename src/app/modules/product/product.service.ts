@@ -7,6 +7,8 @@ import { productSearchableFields } from './product.constant';
 import { GoogleGenAI } from "@google/genai";
 import config from '../../config';
 
+const ai = new GoogleGenAI({ apiKey: config.gemini_api_key });
+
 const createProductIntoDB = async (payload: TProduct) => {
   const result = await Product.create(payload);
 
@@ -74,10 +76,11 @@ const deleteProductFromDB = async (id: string) => {
 };
 
 
-const ai = new GoogleGenAI({ apiKey: config.gemini_api_key });
+
 
 
 export const aiSuggestion = async (message: string) => {
+  
   if (!message) throw new Error("No message provided");
 
   const response = await ai.models.generateContent({
