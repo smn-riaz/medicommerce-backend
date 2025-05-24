@@ -9,7 +9,7 @@ async function main() {
   try {
     await mongoose.connect(config.database_url as string);
 
-    server = app.listen(5000, () => {
+    server = app.listen(config.port, () => {
       console.log(`MediMart is listening at http://localhost:${5000}`);
     });
   } catch (error) {
@@ -17,24 +17,19 @@ async function main() {
   }
 }
 
-main();
 
-process.on('unhandledRejection', (reason: unknown) => {
-  console.error('Unhandled Rejection:', reason);
 
+process.on('unhandledRejection', () => {
   if (server) {
     server.close(() => {
-      console.log('Server closed due to unhandled rejection.');
       process.exit(1);
     });
-  } else {
-    process.exit(1);
   }
 });
 
-process.on('uncaughtException', (error) => {
-  console.error('Uncaught Exception:', error);
+process.on('unhandledRejection', () => {
   process.exit(1);
 });
 
 
+main();
