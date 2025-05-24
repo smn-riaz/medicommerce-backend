@@ -8,9 +8,7 @@
     "lint": "eslint src/**/*.ts",
     "start": "node ./dist/server.js",
     "dev": "tsnd --respawn ./src/server.ts",
-    "lint:fix": "eslint src/**/*.ts --fix",
-    "build": "tsc",
-"vercel-build": "npm run build"
+    "lint:fix": "eslint src/**/*.ts --fix"
 
   },
   "author": "",
