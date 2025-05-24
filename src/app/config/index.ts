@@ -26,4 +26,5 @@ export default {
   ssl_ipn_url: process.env.SSL_IPN_URL,
 
   password: process.env.PASSWORD,
+  gemini_api_key:process.env.GEMINI_API_KEY
 };

@@ -5,6 +5,7 @@ import { Product } from './product.model';
 import QueryBuilder from '../../builder/QueryBuilder';
 import { productSearchableFields } from './product.constant';
 import { GoogleGenAI } from "@google/genai";
+import config from '../../config';
 
 const createProductIntoDB = async (payload: TProduct) => {
   const result = await Product.create(payload);
@@ -73,7 +74,7 @@ const deleteProductFromDB = async (id: string) => {
 };
 
 
-const ai = new GoogleGenAI({ apiKey: "AIzaSyCm62FJ-A8yufTZ2_Zw97GMeHNB4huqnbQ" });
+const ai = new GoogleGenAI({ apiKey: config.gemini_api_key });
 
 
 export const aiSuggestion = async (message: string) => {
