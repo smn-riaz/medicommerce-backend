@@ -20,7 +20,7 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield mongoose_1.default.connect(config_1.default.database_url);
-            server = app_1.default.listen(5000, () => {
+            server = app_1.default.listen(config_1.default.port, () => {
                 console.log(`MediMart is listening at http://localhost:${5000}`);
             });
         }
@@ -29,20 +29,14 @@ function main() {
         }
     });
 }
-main();
-process.on('unhandledRejection', (reason) => {
-    console.error('Unhandled Rejection:', reason);
+process.on('unhandledRejection', () => {
     if (server) {
         server.close(() => {
-            console.log('Server closed due to unhandled rejection.');
             process.exit(1);
         });
     }
-    else {
-        process.exit(1);
-    }
 });
-process.on('uncaughtException', (error) => {
-    console.error('Uncaught Exception:', error);
+process.on('unhandledRejection', () => {
     process.exit(1);
 });
+main();
