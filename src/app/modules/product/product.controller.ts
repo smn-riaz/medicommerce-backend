@@ -24,8 +24,6 @@ const aiSuggestion: RequestHandler = catchAsync(async (req, res) => {
   
   const result = await ProductServices.aiSuggestion(req.body.info);
 
-
-
   sendResponse(res, {
     success: true,
     statusCode: HttpStatus.OK,

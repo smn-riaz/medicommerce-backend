@@ -1,5 +1,5 @@
 {
-  "name": "medimart-server",
+  "name": "medicommerce-server",
   "version": "1.0.0",
   "main": "dist/server.js",
   "scripts": {
@@ -8,8 +8,8 @@
     "lint": "eslint src/**/*.ts",
     "start": "node ./dist/server.js",
     "dev": "tsnd --respawn ./src/server.ts",
-    "lint:fix": "eslint src/**/*.ts --fix"
-    
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "build" :"tsc"
   },
   "author": "",
   "license": "ISC",

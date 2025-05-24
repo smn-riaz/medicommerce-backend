@@ -68,7 +68,7 @@ const aiSuggestion = (message) => __awaiter(void 0, void 0, void 0, function* ()
         model: "gemini-2.0-flash",
         contents: message,
     });
-    return (response.text);
+    return response.text;
 });
 exports.aiSuggestion = aiSuggestion;
 exports.ProductServices = {

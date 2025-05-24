@@ -88,7 +88,7 @@ export const aiSuggestion = async (message: string) => {
     contents: message,
   });
 
-  return(response.text);
+  return response.text
 
 };
 
