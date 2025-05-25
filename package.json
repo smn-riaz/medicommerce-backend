@@ -8,8 +8,7 @@
     "lint": "eslint src/**/*.ts",
     "start": "node ./dist/server.js",
     "dev": "tsnd --respawn ./src/server.ts",
-    "lint:fix": "eslint src/**/*.ts --fix",
-    "build": "tsc"
+    "lint:fix": "eslint src/**/*.ts --fix"
   },
   "author": "",
   "license": "ISC",
@@ -44,10 +43,12 @@
     "zod": "^3.24.2"
   },
   "dependencies": {
-  "@google/genai": "^1.0.1",         
-  "cookie-parser": "^1.4.7",
-  "nodemailer": "^6.10.1",
-  "resend": "^4.3.0",
-  "sslcommerz-lts": "^1.1.0"
-}
+    "@google/genai": "^1.0.1",
+    "@vercel/node": "^4.0.0",
+    "cookie-parser": "^1.4.7",
+    "nodemailer": "^6.10.1",
+    "nodemon": "^3.1.9",
+    "resend": "^4.3.0",
+    "sslcommerz-lts": "^1.1.0"
+  }
 }
