@@ -4,16 +4,37 @@ import { TProduct } from './product.interface';
 import { Product } from './product.model';
 import QueryBuilder from '../../builder/QueryBuilder';
 import { productSearchableFields } from './product.constant';
-import { GoogleGenAI } from "@google/genai";
+
 import config from '../../config';
 
+import { GoogleGenAI } from "@google/genai";
+
+
 const ai = new GoogleGenAI({ apiKey: config.gemini_api_key });
+
+export const aiSuggestion = async (message: string) => {
+  
+  if (!message) throw new Error("No message provided");
+
+  const response = await ai.models.generateContent({
+    model: "gemini-2.0-flash",
+    contents: message,
+  });
+
+  return response.text
+
+};
+
+
 
 const createProductIntoDB = async (payload: TProduct) => {
   const result = await Product.create(payload);
 
   return result;
 };
+
+
+
 
 
 const getSingleProductFromDB = async (id: string) => {
@@ -79,18 +100,7 @@ const deleteProductFromDB = async (id: string) => {
 
 
 
-export const aiSuggestion = async (message: string) => {
-  
-  if (!message) throw new Error("No message provided");
 
-  const response = await ai.models.generateContent({
-    model: "gemini-2.0-flash",
-    contents: message,
-  });
-
-  return response.text
-
-};
 
 
 

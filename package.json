@@ -9,7 +9,7 @@
     "start": "node ./dist/server.js",
     "dev": "tsnd --respawn ./src/server.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
-    "build":"tsc"
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",
@@ -50,6 +50,7 @@
     "nodemailer": "^6.10.1",
     "nodemon": "^3.1.9",
     "resend": "^4.3.0",
-    "sslcommerz-lts": "^1.1.0"
+    "sslcommerz-lts": "^1.1.0",
+    "vercel": "^42.1.1"
   }
 }

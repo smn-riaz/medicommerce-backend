@@ -18,9 +18,20 @@ const AppError_1 = __importDefault(require("../../errors/AppError"));
 const product_model_1 = require("./product.model");
 const QueryBuilder_1 = __importDefault(require("../../builder/QueryBuilder"));
 const product_constant_1 = require("./product.constant");
-const genai_1 = require("@google/genai");
 const config_1 = __importDefault(require("../../config"));
+const genai_1 = require("@google/genai");
 const ai = new genai_1.GoogleGenAI({ apiKey: config_1.default.gemini_api_key });
+const aiSuggestion = (message) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!message)
+        throw new Error("No message provided");
+    const response = yield ai.models.generateContent({
+        model: "gemini-2.0-flash",
+        contents: message,
+    });
+    return response.text;
+    return null;
+});
+exports.aiSuggestion = aiSuggestion;
 const createProductIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield product_model_1.Product.create(payload);
     return result;
@@ -61,16 +72,6 @@ const deleteProductFromDB = (id) => __awaiter(void 0, void 0, void 0, function* 
     const result = yield product_model_1.Product.findByIdAndDelete(id);
     return result;
 });
-const aiSuggestion = (message) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!message)
-        throw new Error("No message provided");
-    const response = yield ai.models.generateContent({
-        model: "gemini-2.0-flash",
-        contents: message,
-    });
-    return response.text;
-});
-exports.aiSuggestion = aiSuggestion;
 exports.ProductServices = {
     createProductIntoDB,
     updateProductFromDB,
